@@ -56,7 +56,7 @@ HackRfConstants = enum(
 	HACKRF_DEVICE_OUT = 0x40,
 	HACKRF_DEVICE_IN = 0xC0,
 	HACKRF_USB_VID = 0x1d50,
-	HACKRF_USB_PID = 0x604b,
+	HACKRF_USB_PID = 0x6089,
 	HACKRF_SUCCESS = 0,
 	#Python defaults to returning none 
 	HACKRF_ERROR = None)
@@ -72,7 +72,8 @@ class HackRf():
 	''' This is the base object for the HackRf Device, and interaction with it '''
 	__JELLYBEAN__ = 'Jellybean'
 	__JAWBREAKER__ = 'Jawbreaker'
-	NAME_LIST = [__JELLYBEAN__, __JAWBREAKER__]
+        __HACKRF_ONE__ = 'HackRf One'
+	NAME_LIST = [__JELLYBEAN__, __JAWBREAKER__, __HACKRF_ONE__]
 
 	def __init__(self):
 		self.name = None
@@ -92,6 +93,7 @@ class HackRf():
 			self.si5351c = SI5351C(self)
 			self.rffc5071 = RFFC5071(self)
 			board_id = self.get_board_id()
+                        logger.debug(board_id)
 			if isinstance( board_id, ( int, long )):
 				self.name = self.NAME_LIST[board_id]
 				logger.debug('Successfully setup HackRf device')
